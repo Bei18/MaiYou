@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>麦友</title>
   
-  <link rel="shortcut icon" href="app-icon-512.png" type="image/x-icon">
-  <link rel="icon" href="app-icon-512.png" type="image/x-icon">
+  <!-- 1. 修改标签页图标引用为 PNG 格式 -->
+  <link rel="icon" href="./app-icon-512.png" type="image/png">
+  <link rel="apple-touch-icon" href="./app-icon-512.png">
 
   <style>
     * {
@@ -314,7 +315,8 @@
 
   <div class="card">
     <div class="app-icon-wrapper">
-      <img src="app-icon-512.png" alt="麦友 Logo" class="app-icon">
+      <!-- 2. 卡片中间的主图标页面引用 -->
+      <img src="./app-icon-512.png" alt="麦友 Logo" class="app-icon">
     </div>
     
     <h1 class="app-name">麦友</h1>
