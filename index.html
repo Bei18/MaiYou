@@ -2,90 +2,419 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>麦友</title>
-  
-  <!-- 引入样式文件 -->
-  <link rel="stylesheet" href="./style.css">
-  <link id="favicon" rel="icon" href="" type="image/png">
-  <link id="appleIcon" rel="apple-touch-icon" href="">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  >
+  <title>麦友 - 下载</title>
+
+  <link
+    rel="icon"
+    href="./app-icon-512.png"
+    type="image/png"
+  >
+  <link
+    rel="apple-touch-icon"
+    href="./app-icon-512.png"
+  >
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+    }
+
+    body {
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "PingFang SC",
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
+
+      background:
+        radial-gradient(
+          circle at 0% 0%,
+          rgba(56, 189, 248, 0.08),
+          transparent 50%
+        ),
+        radial-gradient(
+          circle at 100% 100%,
+          rgba(99, 102, 241, 0.08),
+          transparent 50%
+        ),
+        #f8fafc;
+
+      color: #1e293b;
+      min-height: 100vh;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      padding: 24px 20px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 360px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 28px;
+      padding: 36px 28px 28px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    .app-icon-wrapper {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+
+    .app-icon-wrapper::after {
+      content: "";
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 0;
+      background: rgba(37, 99, 235, 0.15);
+      filter: blur(16px);
+      border-radius: 20px;
+      z-index: 1;
+    }
+
+    .app-icon {
+      position: relative;
+      z-index: 2;
+      width: 84px;
+      height: 84px;
+      border-radius: 20px;
+      object-fit: cover;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+    }
+
+    .app-name {
+      font-size: 24px;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+
+    .app-desc {
+      font-size: 14px;
+      color: #64748b;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .btn-download {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      height: 52px;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 16px;
+      text-decoration: none;
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    .btn-download:active {
+      transform: scale(0.97);
+      opacity: 0.9;
+    }
+
+    .btn-download svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    .info-section {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid #f1f5f9;
+    }
+
+    .info-item {
+      font-size: 12px;
+      color: #94a3b8;
+      line-height: 1.6;
+      margin-bottom: 6px;
+    }
+
+    .version {
+      margin-top: 16px;
+      font-size: 11px;
+      color: #cbd5e1;
+    }
+
+    .wechat-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: rgba(15, 23, 42, 0.92);
+      color: #ffffff;
+      padding: 16px 20px 32px;
+      overflow-y: auto;
+    }
+
+    .wechat-content {
+      width: 100%;
+      max-width: 390px;
+      margin: 0 auto;
+    }
+
+    .wechat-top {
+      position: relative;
+      min-height: 70px;
+      text-align: right;
+    }
+
+    .wechat-arrow {
+      display: inline-block;
+      width: 60px;
+      height: 60px;
+      margin-right: 8px;
+      animation: arrowFloat 1.3s ease-in-out infinite;
+    }
+
+    .wechat-arrow svg {
+      width: 100%;
+      height: 100%;
+      fill: none;
+      stroke: #38bdf8;
+      stroke-width: 3.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    @keyframes arrowFloat {
+      0%, 100% {
+        transform: translate(0, 0);
+      }
+      50% {
+        transform: translate(3px, -6px);
+      }
+    }
+
+    .wechat-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-top: 4px;
+      margin-bottom: 8px;
+    }
+
+    .wechat-subtitle {
+      font-size: 13px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.82);
+      margin-bottom: 20px;
+    }
+
+    .wechat-card {
+      background: #ffffff;
+      color: #1e293b;
+      border-radius: 20px;
+      padding: 16px 18px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .wechat-step {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+    }
+
+    .wechat-step + .wechat-step {
+      border-top: 1px solid #f1f5f9;
+    }
+
+    .wechat-number {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #e0f2fe;
+      color: #0284c7;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .wechat-step-text {
+      font-size: 13px;
+      line-height: 1.5;
+      color: #334155;
+    }
+
+    .wechat-step-text strong {
+      color: #0284c7;
+    }
+
+    @media (max-height: 650px) {
+      body {
+        align-items: flex-start;
+      }
+      .card {
+        margin-top: 20px;
+      }
+      .wechat-overlay {
+        padding-top: 10px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-  <div class="card">
+  <main class="card">
     <div class="app-icon-wrapper">
-      <img id="appIcon" src="" alt="App Icon" class="app-icon">
-    </div>
-    
-    <h1 class="app-name" id="appName">--</h1>
-    <p class="app-desc" id="appDesc">--</p>
-
-    <div class="arrow-guide-box" id="webGuide">
-      <span class="arrow-guide-text"> 点 击 下 载 </span>
-      <svg class="arrow-guide-icon" viewBox="0 0 24 24">
-        <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
-      </svg>
+      <img
+        id="appIcon"
+        src="https://bei18.github.io/mai-you/app-icon-512.png"
+        alt="麦友"
+        class="app-icon"
+      >
     </div>
 
-    <a href="#" class="btn-download" id="downloadBtn">
-      <svg viewBox="0 0 24 24">
+    <h1 class="app-name" id="appName">
+      麦友
+    </h1>
+
+    <p class="app-desc" id="appDesc">
+      免费使用的聊天软件
+    </p>
+
+    <a
+      id="downloadBtn"
+      class="btn-download"
+      href="./maiyou.v1.1.5.apk"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-5.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
       </svg>
-      <span id="btnText">安全下载</span>
+      <span>下载应用</span>
     </a>
 
-    <div class="security-section">
-      <div class="security-tags">
-        <span class="tag-item">
-          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          官方正版
-        </span>
-        <span class="tag-item">
-          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          安全无毒
-        </span>
-        <span class="tag-item">
-          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          隐私安全
-        </span>
-      </div>
-      <p class="security-tips">已通过安全软件检测，请放心安装使用</p>
+    <div class="info-section">
+      <p class="info-item">Android 应用安装包</p>
+      <p class="info-item">下载后请按照系统提示完成安装</p>
+      <p class="version" id="appVersion">v1.1.5</p>
     </div>
-  </div>
+  </main>
 
-  <div class="wx-mask" id="wxMask">
-    <div class="wx-guide-container">
-      <div class="wx-arrow-pointer">
-        <svg viewBox="0 0 50 50" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M 10 40 Q 30 20 42 8" />
-          <path d="M 28 8 L 42 8 L 42 22" />
-        </svg>
+  <div class="wechat-overlay" id="wechatOverlay">
+    <div class="wechat-content">
+      <div class="wechat-top">
+        <div class="wechat-arrow">
+          <svg viewBox="0 0 70 70">
+            <path d="M8 60 C25 42, 40 25, 59 10" />
+            <path d="M42 10 L59 10 L59 27" />
+          </svg>
+        </div>
       </div>
 
-      <div class="visual-card">
-        <div class="visual-title">
-          <span>i</span> 请按提示完成下载
+      <h2 class="wechat-title">请在浏览器内打开</h2>
+
+      <p class="wechat-subtitle">
+        当前页面在微信内打开。<br>
+        请按照下方提示在系统浏览器中打开并继续。
+      </p>
+
+      <div class="wechat-card">
+        <div class="wechat-step">
+          <div class="wechat-number">1</div>
+          <div class="wechat-step-text">
+            点击页面右上角的 <strong>「•••」</strong> 菜单
+          </div>
         </div>
 
-        <div class="step-item">
-          <div class="step-num">1</div>
-          <div class="step-text">点击右上角 <strong>「•••」</strong> </div>
+        <div class="wechat-step">
+          <div class="wechat-number">2</div>
+          <div class="wechat-step-text">
+            选择 <strong>「在浏览器打开」</strong>
+          </div>
         </div>
 
-        <div class="step-item">
-          <div class="step-num">2</div>
-          <div class="step-text">选择 <strong>「在浏览器打开」</strong></div>
-          <div class="mock-browser-icon">
-            <svg viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-            </svg>
+        <div class="wechat-step">
+          <div class="wechat-number">3</div>
+          <div class="wechat-step-text">
+            页面重新打开后，点击下载按钮即可
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <script src="./config.js"></script>
-  <script src="./app.js"></script>
+  <script>
+    const APP_CONFIG = {
+      appName: "麦友",
+      appDesc: "免费使用的聊天软件",
+      appIcon: "https://bei18.github.io/mai-you/app-icon-512.png",
+      downloadUrl: "https://bei18.github.io/mai-you/maiyou.v1.1.5.apk",
+      version: "v1.1.5",
+      pageTitle: "麦友 - 下载"
+    };
+
+    function isWeChat() {
+      return /micromessenger/i.test(navigator.userAgent);
+    }
+
+    function initPage() {
+      document.title = APP_CONFIG.pageTitle;
+
+      const appIcon = document.getElementById("appIcon");
+      if (appIcon) appIcon.src = APP_CONFIG.appIcon;
+
+      const appName = document.getElementById("appName");
+      if (appName) appName.textContent = APP_CONFIG.appName;
+
+      const appDesc = document.getElementById("appDesc");
+      if (appDesc) appDesc.textContent = APP_CONFIG.appDesc;
+
+      const downloadBtn = document.getElementById("downloadBtn");
+      if (downloadBtn) downloadBtn.href = APP_CONFIG.downloadUrl;
+
+      const appVersion = document.getElementById("appVersion");
+      if (appVersion) appVersion.textContent = APP_CONFIG.version;
+
+      if (isWeChat()) {
+        const overlay = document.getElementById("wechatOverlay");
+        if (overlay) {
+          overlay.style.display = "block";
+        }
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initPage);
+    } else {
+      initPage();
+    }
+  </script>
+
 </body>
 </html>
