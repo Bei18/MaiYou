@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>麦友</title>
+  
+  <!-- 引入样式文件 -->
+  <link rel="stylesheet" href="./style.css">
+  <link id="favicon" rel="icon" href="" type="image/png">
+  <link id="appleIcon" rel="apple-touch-icon" href="">
+</head>
+<body>
+
+  <div class="card">
+    <div class="app-icon-wrapper">
+      <img id="appIcon" src="" alt="App Icon" class="app-icon">
+    </div>
+    
+    <h1 class="app-name" id="appName">--</h1>
+    <p class="app-desc" id="appDesc">--</p>
+
+    <div class="arrow-guide-box" id="webGuide">
+      <span class="arrow-guide-text"> 点 击 下 载 </span>
+      <svg class="arrow-guide-icon" viewBox="0 0 24 24">
+        <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+      </svg>
+    </div>
+
+    <a href="#" class="btn-download" id="downloadBtn">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-5.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+      </svg>
+      <span id="btnText">安全下载</span>
+    </a>
+
+    <div class="security-section">
+      <div class="security-tags">
+        <span class="tag-item">
+          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          官方正版
+        </span>
+        <span class="tag-item">
+          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          安全无毒
+        </span>
+        <span class="tag-item">
+          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          隐私安全
+        </span>
+      </div>
+      <p class="security-tips">已通过安全软件检测，请放心安装使用</p>
+    </div>
+  </div>
+
+  <div class="wx-mask" id="wxMask">
+    <div class="wx-guide-container">
+      <div class="wx-arrow-pointer">
+        <svg viewBox="0 0 50 50" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M 10 40 Q 30 20 42 8" />
+          <path d="M 28 8 L 42 8 L 42 22" />
+        </svg>
+      </div>
+
+      <div class="visual-card">
+        <div class="visual-title">
+          <span>i</span> 请按提示完成下载
+        </div>
+
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text">点击右上角 <strong>「•••」</strong> </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text">选择 <strong>「在浏览器打开」</strong></div>
+          <div class="mock-browser-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./config.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
