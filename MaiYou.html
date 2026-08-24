@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>拾语</title>
+  
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+      background-color: #f8fafc;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.08) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.08) 0px, transparent 50%);
+      color: #1e293b;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px 20px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 360px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 28px;
+      padding: 36px 28px 28px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    .app-icon-wrapper {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+
+    .app-icon-wrapper::after {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 0;
+      background: rgba(37, 99, 235, 0.15);
+      filter: blur(16px);
+      border-radius: 20px;
+      z-index: 1;
+    }
+
+    .app-icon {
+      position: relative;
+      z-index: 2;
+      width: 84px;
+      height: 84px;
+      border-radius: 20px;
+      object-fit: cover;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+    }
+
+    .app-name {
+      font-size: 24px;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+
+    .app-desc {
+      font-size: 14px;
+      color: #64748b;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .arrow-guide-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 12px;
+      animation: bounce 1.2s infinite ease-in-out;
+    }
+
+    .arrow-guide-text {
+      font-size: 12px;
+      font-weight: 600;
+      color: #0284c7;
+      background: #e0f2fe;
+      padding: 4px 12px;
+      border-radius: 12px;
+      margin-bottom: 4px;
+    }
+
+    .arrow-guide-icon {
+      width: 20px;
+      height: 20px;
+      fill: #0284c7;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(5px);
+      }
+    }
+
+    .btn-download {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      height: 52px;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 16px;
+      text-decoration: none;
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    .btn-download:active {
+      transform: scale(0.97);
+      opacity: 0.9;
+    }
+
+    .btn-download svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    .security-section {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid #f1f5f9;
+    }
+
+    .security-tags {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .tag-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: #10b981;
+      font-weight: 500;
+    }
+
+    .tag-item svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+    }
+
+    .security-tips {
+      font-size: 12px;
+      color: #94a3b8;
+      line-height: 1.4;
+    }
+
+    .wx-mask {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 9999;
+      color: #ffffff;
+    }
+
+    .wx-guide-container {
+      width: 100%;
+      max-width: 380px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      position: relative;
+    }
+
+    .wx-arrow-pointer {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      width: 52px;
+      height: 52px;
+      animation: float-arrow 1.2s infinite ease-in-out;
+    }
+
+    .wx-arrow-pointer svg {
+      width: 100%;
+      height: 100%;
+      stroke: #38bdf8;
+      fill: none;
+    }
+
+    .visual-card {
+      background: #ffffff;
+      color: #1e293b;
+      border-radius: 24px;
+      padding: 24px 20px;
+      margin-top: 60px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+      text-align: left;
+    }
+
+    .visual-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .visual-title span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      background: #0284c7;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 13px;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: center;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+      gap: 12px;
+    }
+
+    .step-num {
+      width: 24px;
+      height: 24px;
+      background: #e0f2fe;
+      color: #0284c7;
+      font-weight: 700;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .step-text {
+      font-size: 14px;
+      color: #334155;
+      font-weight: 500;
+    }
+
+    .step-text strong {
+      color: #0284c7;
+    }
+
+    .mock-browser-icon {
+      width: 28px;
+      height: 28px;
+      background: #0284c7;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+
+    .mock-browser-icon svg {
+      width: 18px;
+      height: 18px;
+      fill: #ffffff;
+    }
+
+    @keyframes float-arrow {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(4px, -6px); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="app-icon-wrapper">
+      <img src="favicon.ico" alt="拾语 Logo" class="app-icon">
+    </div>
+    
+    <h1 class="app-name">拾语</h1>
+    <p class="app-desc">免费使用的视频聊天交友软件</p>
+
+    <div class="arrow-guide-box" id="webGuide">
+      <span class="arrow-guide-text"> 点 击 下 载 </span>
+      <svg class="arrow-guide-icon" viewBox="0 0 24 24">
+        <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+      </svg>
+    </div>
+
+    <a href="https://github.com/Bei18/ShiYu/releases/download/v1.0.0/shiyu.apk" class="btn-download" id="downloadBtn">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-5.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+      </svg>
+      <span id="btnText">安全下载</span>
+    </a>
+
+    <div class="security-section">
+      <div class="security-tags">
+        <span class="tag-item">
+          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          官方正版
+        </span>
+        <span class="tag-item">
+          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          安全无毒
+        </span>
+        <span class="tag-item">
+          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          隐私安全
+        </span>
+      </div>
+      <p class="security-tips">已通过安全软件检测，请放心安装使用</p>
+    </div>
+  </div>
+
+  <div class="wx-mask" id="wxMask">
+    <div class="wx-guide-container">
+
+      <div class="wx-arrow-pointer">
+        <svg viewBox="0 0 50 50" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M 10 40 Q 30 20 42 8" />
+          <path d="M 28 8 L 42 8 L 42 22" />
+        </svg>
+      </div>
+
+      <div class="visual-card">
+        <div class="visual-title">
+          <span>i</span> 请按提示完成下载
+        </div>
+
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text">点击右上角 <strong>「•••」</strong> </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text">选择 <strong>「在浏览器打开」</strong></div>
+          <div class="mock-browser-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function isWeChat() {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('wx') || urlParams.has('2')) {
+        return true;
+      }
+      return /micromessenger/i.test(navigator.userAgent);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const webGuide = document.getElementById('webGuide');
+      const mask = document.getElementById('wxMask');
+      const btn = document.getElementById('downloadBtn');
+      const btnText = document.getElementById('btnText');
+
+      if (isWeChat()) {
+        if (webGuide) webGuide.style.display = 'none';
+        
+        mask.style.display = 'block';
+        btnText.innerText = '右上角浏览器打开';
+
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          mask.style.display = 'block';
+        });
+
+        mask.addEventListener('click', () => {
+          mask.style.display = 'none';
+        });
+      } else {
+        if (webGuide) webGuide.style.display = 'flex';
+      }
+    });
+  </script>
+</body>
+</html>
